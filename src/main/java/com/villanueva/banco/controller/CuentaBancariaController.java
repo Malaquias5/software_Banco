@@ -1,7 +1,7 @@
 package com.villanueva.banco.controller;
 import org.springframework.web.bind.annotation.*;
 @RestController
-@RequestMapping("/api/v1/cuentas")
+@RequestMapping("/api/cuentas")
 public class CuentaBancariaController {
 
     @PostMapping

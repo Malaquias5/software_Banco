@@ -1,32 +1,68 @@
-package com.villanueva.banco.controller;
+package com.villanueva.banco.entity;
 
-import com.villanueva.banco.entity.Cliente;
-import com.villanueva.banco.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import jakarta.persistence.*;
+import java.io.Serializable;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.List;
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Entity
+@Table(name = "cliente")
+public class Cliente implements Serializable {
 
-@RestController
-@RequestMapping("/api/clientes")
-public class ClienteController {
+    private static final long serialVersionUID = 1L;
 
-    @Autowired
-    private ClienteRepository clienteRepository;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    // GET - Listar todos los clientes
-    @GetMapping
-    public ResponseEntity<List<Cliente>> getAllClientes() {
-        List<Cliente> clientes = clienteRepository.findAll();
-        return ResponseEntity.ok(clientes);
+    @Column(name = "nombres_completos", nullable = false, length = 150)
+    private String nombresCompletos;
+
+    @Column(nullable = false, length = 150)
+    private String email;
+
+    @Column(length = 1)
+    private String estado = "1";
+
+    public Cliente() {
     }
 
-    // POST - Registrar nuevo cliente
-    @PostMapping
-    public ResponseEntity<Cliente> crearCliente(@RequestBody Cliente cliente) {
-        // El estado "1" ya está por defecto en la entidad
-        Cliente nuevoCliente = clienteRepository.save(cliente);
-        return ResponseEntity.ok(nuevoCliente);
+    public Cliente(Integer id, String nombresCompletos, String email, String estado) {
+        this.id = id;
+        this.nombresCompletos = nombresCompletos;
+        this.email = email;
+        this.estado = estado;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getNombresCompletos() {
+        return nombresCompletos;
+    }
+
+    public void setNombresCompletos(String nombresCompletos) {
+        this.nombresCompletos = nombresCompletos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 }

@@ -1,19 +1,14 @@
 package com.villanueva.banco.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "operacion")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Operacion implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +30,64 @@ public class Operacion implements Serializable {
 
     @Column(nullable = false, length = 1)
     private String estado = "1"; // '1' Activo, '0' Cancelado
+
+    public Operacion() {
+    }
+
+    public Operacion(Integer id, Cliente cliente, CuentaBancaria cuentaBancaria, String tipoOperacion, BigDecimal monto, String estado) {
+        this.id = id;
+        this.cliente = cliente;
+        this.cuentaBancaria = cuentaBancaria;
+        this.tipoOperacion = tipoOperacion;
+        this.monto = monto;
+        this.estado = estado;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public CuentaBancaria getCuentaBancaria() {
+        return cuentaBancaria;
+    }
+
+    public void setCuentaBancaria(CuentaBancaria cuentaBancaria) {
+        this.cuentaBancaria = cuentaBancaria;
+    }
+
+    public String getTipoOperacion() {
+        return tipoOperacion;
+    }
+
+    public void setTipoOperacion(String tipoOperacion) {
+        this.tipoOperacion = tipoOperacion;
+    }
+
+    public BigDecimal getMonto() {
+        return monto;
+    }
+
+    public void setMonto(BigDecimal monto) {
+        this.monto = monto;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 }
